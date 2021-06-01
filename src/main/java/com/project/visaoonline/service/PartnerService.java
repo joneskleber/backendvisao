@@ -4,13 +4,16 @@ import com.project.visaoonline.exceptions.BusinessException;
 import com.project.visaoonline.exceptions.NotFoundException;
 import com.project.visaoonline.mapper.PartnerMapper;
 import com.project.visaoonline.model.Partner;
+import com.project.visaoonline.model.Stock;
 import com.project.visaoonline.model.dto.PartnerDTO;
+import com.project.visaoonline.model.dto.StockDTO;
 import com.project.visaoonline.repository.PartnerRepository;
 import com.project.visaoonline.util.MessageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,12 +26,9 @@ public class PartnerService {
     @Autowired
     public PartnerMapper mapper;
 
-    public PartnerService() {
-    }
-
     @Transactional
     public PartnerDTO save(PartnerDTO dto) {
-        Optional<Partner> optionalPartner = repository.findById(dto.getId());
+        Optional<Partner> optionalPartner = repository.findByNameAndDate(dto.getName(), dto.getDecade());
         if(optionalPartner.isPresent()){
             throw new BusinessException(MessageUtils.STOCK_ALREADY_EXISTS);
         }
@@ -37,6 +37,20 @@ public class PartnerService {
         repository.save(partner);
         return mapper.toDto(partner);
     }
+
+    @Transactional
+    public PartnerDTO update(PartnerDTO dto) {
+        Optional<Partner> optionalPartner = repository.findByPartnerUpdate(dto.getName(), dto.getDecade(), dto.getId());
+        if(optionalPartner.isPresent()){
+            throw new BusinessException(MessageUtils.PARTNER_ALREADY_EXISTS);
+        }
+
+        Partner partner = mapper.toEntity(dto);
+        repository.save(partner);
+        return mapper.toDto(partner);
+    }
+
+
 
     @Transactional
     public PartnerDTO delete(Long id) {
@@ -50,9 +64,11 @@ public class PartnerService {
         return mapper.toDto(repository.findAll());
     }
 
+
     @Transactional
     public PartnerDTO findById(Long id) {
         return repository.findById(id).map(mapper::toDto).orElseThrow(NotFoundException::new);
     }
+
 
 }

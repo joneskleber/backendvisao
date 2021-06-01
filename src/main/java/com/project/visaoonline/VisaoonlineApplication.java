@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+
 @SpringBootApplication
 public class VisaoonlineApplication {
 
@@ -20,6 +21,25 @@ public class VisaoonlineApplication {
 		return new OpenAPI().info(new Info()
 				.title(description)
 				.version("1.0")
+				.termsOfService("http://swagger.io/terms")
+				.license(new License().name("Apache 2.0").url("http://springdoc.org"))
+		);
+	}
+}
+
+
+
+public class BootcampApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(BootcampApplication.class, args);
+	}
+
+	@Bean
+	public OpenAPI customOpenAPI(@Value("${application.description}") String description){
+		return new OpenAPI().info(new Info()
+				.title(description)
+				.version("2.0")
 				.termsOfService("http://swagger.io/terms")
 				.license(new License().name("Apache 2.0").url("http://springdoc.org"))
 		);

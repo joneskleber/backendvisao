@@ -13,16 +13,16 @@ import java.util.Optional;
 @Repository
 public interface PartnerRepository extends JpaRepository<Partner, Long> {
 
-    Optional<Partner> findById(Long id);
+    Optional<Partner> findByNameAndDate(String name, LocalDate decade);
 
-
-    @Query("SELECT stock " +
-            "FROM Stock stock " +
-            "WHERE stock.name = :name AND stock.date = :date AND stock.id <> :id")
-    Optional<Stock> findByStockUpdate(String name, LocalDate date, Long id);
 
     @Query("SELECT partner " +
             "FROM Partner partner " +
-            "WHERE partner.id = :id")
-    Optional<List<Partner>> findByToday(Long id);
+            "WHERE partner.name = :name AND partner.decade = :decade AND partner.id <> :id")
+    Optional<Partner> findByPartnerUpdate(String name, LocalDate decade, Long id);
+
+    //@Query("SELECT partner " +
+    //        "FROM Partner partner " +
+    //        "WHERE partner.id = :id")
+    //Optional<List<Partner>> findByToday(Long id);
 }

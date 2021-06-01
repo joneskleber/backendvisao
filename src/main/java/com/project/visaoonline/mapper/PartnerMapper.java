@@ -13,7 +13,7 @@ public class PartnerMapper {
     public Partner toEntity(PartnerDTO dto) {
         Partner partner = new Partner();
         partner.setId(dto.getId());
-        partner.setDecade(dto.getDacade());
+        partner.setDecade(dto.getDecade());
         partner.setName(dto.getName());
         partner.setRegion(dto.getRegion());
         partner.setTelephone(dto.getTelephone());
@@ -27,7 +27,7 @@ public class PartnerMapper {
     public PartnerDTO toDto(Partner partner) {
         PartnerDTO dto = new PartnerDTO();
         dto.setId(partner.getId());
-        dto.setDacade(partner.getDecade());
+        dto.setDecade(partner.getDecade());
         dto.setName(partner.getName());
         dto.setRegion(partner.getRegion());
         dto.setTelephone(partner.getTelephone());

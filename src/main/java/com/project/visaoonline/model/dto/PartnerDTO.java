@@ -10,7 +10,7 @@ public class PartnerDTO {
 
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    private LocalDate dacade;
+    private LocalDate decade;
 
     @NotNull
     private String name;
@@ -37,12 +37,12 @@ public class PartnerDTO {
         this.id = id;
     }
 
-    public LocalDate getDacade() {
-        return dacade;
+    public LocalDate getDecade() {
+        return decade;
     }
 
-    public void setDacade(LocalDate dacade) {
-        this.dacade = dacade;
+    public void setDecade(LocalDate decade) {
+        this.decade = decade;
     }
 
     public String getName() {
